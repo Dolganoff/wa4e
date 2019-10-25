@@ -123,6 +123,7 @@ if ( strpos(strtolower($html), 'are required') !== false ) {
     markTestPassed('Found error message');
 } else {
     error_out("Could not find 'All values are required' in add.php");
+    error_out("It is a good practice to put the 'All fields are required' check before the other checks (like is_numeric)");
     return;
 }
 
@@ -172,8 +173,8 @@ showHTML("Show retrieved page",$html);
 
 line_out('Looking for the form with a value="Save" submit button');
 $form = webauto_get_form_button($crawler,'Save');
-webauto_change_form($form, $firststringfield, '42');
-$firststring='42';
+$firststring='42986856712';
+webauto_change_form($form, $firststringfield, $firststring);
 $crawler = $client->submit($form);
 markTestPassed("edit.php submitted");
 $html = $crawler->html();
@@ -181,7 +182,7 @@ checkPostRedirect($client);
 showHTML("Show retrieved page",$html);
 
 line_out("Checking edit results");
-if ( strpos(strtolower($html), '42') !== false ) {
+if ( strpos(strtolower($html), $firststring) !== false ) {
     markTestPassed("edit.php results verified");
 } else {
     error_out("Record did not seem to be updated");
